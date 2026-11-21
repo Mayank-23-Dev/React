@@ -5,11 +5,13 @@ import Form from "./Form";
 
 
 const App = () => {
-  const [toggle, setToggle] = useState(true);
-  const [users, setUsers] = useState([]);
+  const [toggle, setToggle] = useState(false);
+  const [users, setUsers] = useState(JSON.parse(localStorage.getItem("users")) || []);
 
   const handleDeleteUser = (indexToDelete) => {
-    setUsers((prev) => prev.filter((_, idx) => idx !== indexToDelete));
+    let updatedUsers = users.filter((_, idx) => idx !== indexToDelete);
+    setUsers(updatedUsers);
+    localStorage.setItem("users", JSON.stringify(updatedUsers));
   };
 
   return (
@@ -84,7 +86,7 @@ const App = () => {
             )}
           </div>
         ) : (
-          <Form setUser={setUsers} setToggle={setToggle} />
+          <Form setUser={setUsers} setToggle={setToggle} users={users}/>
         )}
       </main>
     </div>

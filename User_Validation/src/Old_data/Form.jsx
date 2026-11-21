@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 
-const Form = ({ setUser, setToggle }) => {
+const Form = ({ setUser, setToggle, users }) => {
   const {
     register,
     handleSubmit,
@@ -15,7 +15,9 @@ const Form = ({ setUser, setToggle }) => {
   const imageUrl = watch("image");
 
   const formSubmit = (data) => {
-    setUser((prev) => [...prev, data]);
+    let lsd=[...users,data];
+    setUser(lsd);
+    localStorage.setItem("users", JSON.stringify(lsd));
     reset();
     setToggle(true);
   };
